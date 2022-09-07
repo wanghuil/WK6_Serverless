@@ -1,12 +1,4 @@
 'use strict';
-const client = require('prom-client');
-
-// Create a Registry to register the metrics
-const register = new client.Registry();
-register.setDefaultLabels({
-    app:'hello-nodejs-app'
-    }
-)
 client.collectDefaultMetrics({register});
 
 console.log('Loading hello world function');
