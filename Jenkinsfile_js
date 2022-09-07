@@ -66,7 +66,7 @@ pipeline {
                 echo 'Create a deployment package && Create a Lambda function' 
                 withAWS(credentials: 'AWS_JR8', region: 'ap-southeast-2') {
                     sh """
-                       zip function.zip $lambdaFileName
+                       zip function.zip $lambdaFileName node_modules package*.json
                        
                        aws lambda create-function --function-name $lambdaName \
                         --zip-file fileb://function.zip --handler ${params.lambdaHandler} --runtime $lambdaRuntime \

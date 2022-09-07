@@ -1,2 +1,5 @@
 .idea/
 lib/
+package*.json
+node_modules/
+*.zip
