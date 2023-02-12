@@ -1,9 +1,13 @@
 'use strict';
-client.collectDefaultMetrics({register});
-
 console.log('Loading hello world function');
+// Load the AWS SDK for Node.js
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+// Create the DynamoDB service object
+const client = new DynamoDBClient({
+  region: "ap-southeast-2"
+});
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
     let name = "you";
     let city = 'World';
     let time = 'day';
