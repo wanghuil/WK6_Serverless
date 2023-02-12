@@ -5,7 +5,7 @@ pipeline {
         lambdaRole      = "GetStartedLambdaBasicExecutionRole"
         lambdaName      = "GetStartedLambdaProxyIntegration"
         lambdaFileName  = "*.js"
-        lambdaRuntime   = "nodejs16.x"
+        lambdaRuntime   = "nodejs18.x"
         accountID       = "402117963536"
         dynamoTable     = "HelloWorldTable"
         AWS_Creds       = "aws_jr9"
