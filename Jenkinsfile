@@ -4,7 +4,7 @@ pipeline {
     environment {
         lambdaRole      = "GetStartedLambdaBasicExecutionRole"
         lambdaName      = "GetStartedLambdaProxyIntegration"
-        lambdaFileName  = "*.js"
+        lambdaFileName  = "*.mjs"
         lambdaRuntime   = "nodejs18.x"
         accountID       = "402117963536"
         dynamoTable     = "HelloWorldTable"
