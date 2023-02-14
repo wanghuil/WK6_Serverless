@@ -1,15 +1,12 @@
-'use strict';
 // Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
-AWS.config.update({region: 'ap-southeast-2'})
-
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 // Create the DynamoDB service object
-var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
-console.log('Loading hello world function');
+const client = new DynamoDBClient({
+  region: "ap-southeast-2"
+});
+'use strict';
 
-
-exports.handler = async (event) => {
-
+export const handler = async (event) => {
     let name = "you";
     let city = 'World';
     let time = 'day';
@@ -67,8 +64,14 @@ exports.handler = async (event) => {
         if (body.time)
             time = body.time;
         else {
-            time = new Date(new Date().toLocaleString('en-us', {timeZone: 'Australia/Brisbane'})).getHours()
-            time = `${time} o'clock`
+            hour = new Date(new Date().toLocaleString('en-us', {timeZone: 'Australia/Brisbane'})).getHours()
+            if (hour<6 || hour>18)
+                time = "evening"
+            else if (hour<12)
+                time = "morning"
+            else
+                time = "afternoon"
+
         }
     }
     else {
@@ -95,7 +98,7 @@ exports.handler = async (event) => {
 
     console.log("response: " + JSON.stringify(response))
 
-        let params = {
+    let params = {
         TableName: 'HelloWorldTable',
         Item: {
             'id': {N: new Date().valueOf().toString()},
