@@ -88,6 +88,7 @@ pipeline {
                         --zip-file fileb://function.zip 
                     '''
                 }
+                sleep 10
             }
         }
 
