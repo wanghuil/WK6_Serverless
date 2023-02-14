@@ -64,7 +64,7 @@ export const handler = async (event) => {
         if (body.time)
             time = body.time;
         else {
-            hour = new Date(new Date().toLocaleString('en-us', {timeZone: 'Australia/Brisbane'})).getHours()
+            let hour = new Date(new Date().toLocaleString('en-us', {timeZone: 'Australia/Brisbane'})).getHours()
             if (hour<6 || hour>18)
                 time = "evening"
             else if (hour<12)
@@ -105,14 +105,16 @@ export const handler = async (event) => {
             'name' : {S: name},
             'city' : {S: city}
         }
-    };
-    let ddbResponse = await ddb.putItem(params, function(err, data) {
-        if (err) {
-            console.log("Error", err);
-        } else {
-            console.log("Success", data);
-        }
-    }).promise();
-    console.log('ddbResponse', ddbResponse)
+      };
+      console.log("params: ", params)
+      const putItemCommand = new PutItemCommand(params); 
+  
+      try {
+          const data = await client.send(putItemCommand);
+          console.log("Item added successfully:", JSON.stringify(data, null, 2));
+        } catch (err) {
+          console.error("Error adding item:", err);
+      };
+      
     return response;
 };

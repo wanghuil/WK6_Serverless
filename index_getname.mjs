@@ -47,7 +47,7 @@ export const handler = async (event) => {
         TableName: "HelloWorldTable"
     };
     console.log("params: ", params)
-    const ScanNameCommand = new ScanCommand(param);
+    const ScanNameCommand = new ScanCommand(params);
 
     try {
         const data = await client.send(ScanNameCommand);
