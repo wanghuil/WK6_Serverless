@@ -1,15 +1,14 @@
 // Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
-AWS.config.update({region: 'ap-southeast-2'})
-
-
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 // Create the DynamoDB service object
-var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+const client = new DynamoDBClient({
+  region: "ap-southeast-2"
+});
 'use strict';
 console.log('Loading hello world function');
 
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
     let name = "you";
     let city = 'World';
     let time = 'day';
@@ -68,14 +67,16 @@ exports.handler = async (event) => {
             'name' : {S: name},
             'city' : {S: city}
         }
-    };
-    let ddbResponse = await ddb.putItem(params, function(err, data) {
-        if (err) {
-            console.log("Error", err);
-        } else {
-            console.log("Success", data);
-        }
-    }).promise();
-    console.log('ddbResponse', ddbResponse)
+      };
+      console.log("params: ", params)
+      const putItemCommand = new PutItemCommand(params); 
+  
+      try {
+          const data = await client.send(putItemCommand);
+          console.log("Item added successfully:", JSON.stringify(data, null, 2));
+        } catch (err) {
+          console.error("Error adding item:", err);
+      };
+
     return response;
 };

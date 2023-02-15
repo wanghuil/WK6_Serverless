@@ -1,10 +1,10 @@
 {
   "queryStringParameters": {
-    "name": "Will",
-    "city": "Gold Coast"
+    "name": "Optimus Prime",
+    "city": "Cybertron"
   },
   "headers": {
-    "day": "Tuesday"
+    "day": "Thursday"
   },
   "body": "{\"time\": \"Evening\" }"
 }
