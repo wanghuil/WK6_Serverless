@@ -6,9 +6,9 @@ pipeline {
         lambdaName      = "GetStartedLambdaProxyIntegration"
         lambdaFileName  = "*.mjs"
         lambdaRuntime   = "nodejs18.x"
-        accountID       = "402117963536"
+        accountID       = "026559016816"
         dynamoTable     = "HelloWorldTable"
-        AWS_Creds       = "aws_jr9"
+        AWS_Creds       = "aws_jr_william"
     }
 
     parameters {
@@ -45,22 +45,12 @@ pipeline {
                         --role-name ${lambdaRole} \
                         --policy-arn arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
                     """
+                    echo "Sleep to Wait for the roles creation..."
                     sleep 15
                 }
             }
         }
-/*        stage('Wait Role Creation') {
-            steps{
-                echo "Waiting for ${lambdaRole} Creation"
-                //The input can also be replaced by sleep
-                script {
-                    timeout(time: 20, unit: 'SECONDS') {
-                            input "Should we continue to create lambda?"
-                    }
-                }
-            }
-        }
-*/
+
         stage('Create Lambda') {
             when { expression{ return params.blCreateLambda } }
             steps{
