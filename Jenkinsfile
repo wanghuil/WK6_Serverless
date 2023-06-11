@@ -109,7 +109,7 @@ pipeline {
                        --function-name GetStartedLambdaProxyIntegration \
                        --log-type Tail \
                        --query LogResult \
-                       --payload $(python -c "import json, sys; sys.stdout.write(json.dumps({'queryStringParameters': {'name': 'Will', 'city': 'Gold Coast', 'time': 'sunday'}}, ensure_ascii=False))") \
+                       --payload $(python3 -c "import json, sys; sys.stdout.write(json.dumps({'queryStringParameters': {'name': 'Will', 'city': 'Gold Coast', 'time': 'sunday'}}, ensure_ascii=False))") \
                        --output text
                     '''
                 } 
