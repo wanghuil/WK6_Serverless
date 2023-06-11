@@ -105,10 +105,11 @@ pipeline {
                     echo 'Invoke test'
                     sh 'aws lambda invoke --function-name $lambdaName out --log-type Tail'
                     sh '''
-                       python3 -c 'import json, sys; sys.stdout.write(json.dumps({"queryStringParameters": {"name": "Will", "city": "Gold Coast", "time": "sunday"}}, ensure_ascii=False))' > payload.json
+                       payload='{ "queryStringParameters": { "name": "Will", "city": "Gold Coast", "time": "sunday" } }'
+                       echo $payload | iconv -c -t UTF-8 > payload.json
 
                        aws lambda invoke --function-name $lambdaName out --log-type Tail --query LogResult --payload file://payload.json --output text
-                    '''
+                       '''
                 } 
             }
         }
