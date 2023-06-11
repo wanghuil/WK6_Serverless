@@ -8,7 +8,7 @@ pipeline {
         lambdaRuntime   = "nodejs18.x"
         accountID       = "498265900521"
         dynamoTable     = "HelloWorldTable"
-        AWS_Creds       = "aws_jr_wanda"
+        AWS_Creds       = "aws_jr10_wanda"
     }
 
     parameters {

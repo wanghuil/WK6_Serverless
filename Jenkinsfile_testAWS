@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('testAWS') {
             steps {
-                withAWS(credentials: 'aws_jr_wanda', region: 'ap-southeast-2') {
+                withAWS(credentials: 'aws_jr10_wanda', region: 'ap-southeast-2') {
                     // some block
                     sh 'aws --version'
                     sh 'aws sts get-caller-identity'
