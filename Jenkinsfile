@@ -105,11 +105,12 @@ pipeline {
                     echo 'Invoke test'
                     sh 'aws lambda invoke --function-name $lambdaName out --log-type Tail'
                     sh '''
-                        aws lambda invoke --function-name $lambdaName out --log-type Tail \
-                        --query 'LogResult' \
-                        --cli-binary-format raw-in-base64-out \
-                        --payload '{ "queryStringParameters": {"name": "Will", "city": "Gold Coast", "time": "sunday"}}' \
-                        --output text
+                       aws lambda invoke $lambdaName out \
+                       --function-name GetStartedLambdaProxyIntegration \
+                       --log-type Tail \
+                       --query LogResult \
+                       --payload $(python -c "import json, sys; sys.stdout.write(json.dumps({'queryStringParameters': {'name': 'Will', 'city': 'Gold Coast', 'time': 'sunday'}}, ensure_ascii=False))") \
+                       --output text
                     '''
                 } 
             }
