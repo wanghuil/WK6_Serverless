@@ -72,10 +72,10 @@ pipeline {
                 echo 'Create a deployment package && Update the Lambda function'
                 withAWS(credentials: "$AWS_Creds", region: 'ap-southeast-2') {
                     sh '''
-                       zip function.zip $lambdaFileName
-                       
-                       aws lambda update-function-code --function-name $lambdaName \
-                        --zip-file fileb://function.zip 
+                        aws lambda invoke --function-name $lambdaName out --log-type Tail \
+                        --query 'LogResult' \
+                        --payload '{ "queryStringParameters": {"name": "Will", "city": "Gold Coast", "time": "Sunday"}}' \
+                        --output text |  base64 -d
                     '''
                 }
                 sleep 10
